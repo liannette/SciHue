@@ -40,7 +40,7 @@ def import_color_schemes():
         description = [
             "Uses colors that are opposite each other on the color wheel",
             "Creates a vibrant and high-contrast look",
-            "Useful for highlighting differences or making certain data points stand out",
+            "Useful for highlighting differences or making certain aspects stand out",
             "Effective in comparative charts and graphs where contrasting elements are essential",
         ],
         n_hues = 2,
@@ -52,7 +52,7 @@ def import_color_schemes():
         description = [
             "Uses a base color and two adjacent colors to its complement",
             "Maintains contrast while offering more color variety than complementary schemes",
-            "Ideal for complex charts where multiple distinctions are necessary but still need a cohesive look",
+            "Ideal for complex figures where multiple distinctions are necessary but still need a cohesive look",
             "Useful in presenting multi-faceted data sets, like social science data",
         ],
         n_hues = 3,
