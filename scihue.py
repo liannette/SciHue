@@ -9,7 +9,7 @@ from frontend import ui
 MAX_COLORS_IN_PALETTE = 7
 DEFAULT_N_COLORS = 7
 MIN_N_COLORS = 3
-DEFAULT_MAIN_COLOR = "#008dff"
+DEFAULT_MAIN_COLOR = "#07386D"
 
 def main():
     ui.initialize_session_state()
