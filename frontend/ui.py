@@ -1,15 +1,17 @@
 import streamlit as st
 from streamlit_js_eval import streamlit_js_eval
+from pathlib import Path
 
 def initialize_session_state():
     if "saved_color_palettes" not in st.session_state:
         st.session_state.saved_color_palettes = list()
 
 def select_color_scheme(all_color_schemes):
-    cols = st.columns(2)
-    choice = cols[0].radio("Hue combination", options=all_color_schemes.keys())
+    cols = st.columns(3)
+    choice = cols[0].radio("Choose a color combination", options=all_color_schemes.keys())
     color_scheme = all_color_schemes[choice]
-    cols[1].caption("  \n* ".join([" ", *color_scheme.description]))
+    cols[1].image(f"images/colorschemes/{color_scheme.name}.png")
+    cols[2].caption("  \n* ".join([" ", *color_scheme.description]))
     return color_scheme
 
 def select_hue_difference(min_diff, max_diff, default_diff):
