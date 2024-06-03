@@ -28,11 +28,12 @@ def main():
     color_palette = generate_palette(main_hex_color, n_colors, scheme.n_hues, hue_diff)
     window_width = ui.get_window_width()
     if window_width is not None:
-        col_width = ui.calculate_column_width(window_width, MAX_COLORS_IN_PALETTE)
-        ui.show_color_palette(color_palette, MAX_COLORS_IN_PALETTE, col_width)
+        n_cols = MAX_COLORS_IN_PALETTE
+        col_width = ui.calculate_column_width(window_width, n_cols)
+        ui.show_color_palette(color_palette, n_cols, col_width)
         ui.show_rerun_buttons()
         ui.current_color_palette(color_palette)
-        ui.show_saved_color_palettes(col_width, MAX_COLORS_IN_PALETTE)
+        ui.show_saved_color_palettes(col_width, n_cols)
 
 if __name__ == "__main__":
     main()
