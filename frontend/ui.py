@@ -39,6 +39,9 @@ def show_color_palette(color_palette, n_cols, col_width):
         cols[i].markdown(f'<div style="background-color: {color_palette[i]}; width: {col_width}px; height: 50px;"></div>', unsafe_allow_html=True)
     for i in range(len(color_palette)):
         cols[i].write(str(color_palette[i]))
+    with cols[-1].popover("📋"):
+        st.code(repr(color_palette))
+        
         
 def show_rerun_buttons():
     cols = st.columns(2)
