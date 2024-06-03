@@ -6,14 +6,13 @@ from frontend import ui
 # include predefinded color palettes from https://docs.bokeh.org/en/latest/docs/reference/palettes.html
 
 # Constants
-MAX_COLORS_IN_PALETTE = 7
+MAX_COLORS_IN_PALETTE = 8
 DEFAULT_N_COLORS = 7
 MIN_N_COLORS = 3
 DEFAULT_MAIN_COLOR = "#07386D"
 
-def main():
-    ui.initialize_session_state()
-    st.header("Sci-Hue")
+
+def random_palette():
     all_color_schemes = import_color_schemes()
     scheme = ui.select_color_scheme(all_color_schemes)
     hue_diff = ui.select_hue_difference(*scheme.hue_diff_settings)
@@ -34,6 +33,14 @@ def main():
         ui.show_rerun_buttons()
         ui.current_color_palette(color_palette)
         ui.show_saved_color_palettes(col_width, n_cols)
+
+
+def main():
+    ui.initialize_session_state()
+    st.header("Sci-Hue")
+    
+    random_palette()
+        
 
 if __name__ == "__main__":
     main()

@@ -7,9 +7,9 @@ def initialize_session_state():
 
 def select_color_scheme(all_color_schemes):
     cols = st.columns(2)
-    choice = cols[0].radio(" ", options=all_color_schemes.keys())
+    choice = cols[0].radio("Hue combination", options=all_color_schemes.keys())
     color_scheme = all_color_schemes[choice]
-    cols[1].caption("  \n* ".join(color_scheme.description))
+    cols[1].caption("  \n* ".join([" ", *color_scheme.description]))
     return color_scheme
 
 def select_hue_difference(min_diff, max_diff, default_diff):
@@ -17,7 +17,7 @@ def select_hue_difference(min_diff, max_diff, default_diff):
         hue_diff = default_diff
     else:
         cols = st.columns(2)
-        hue_diff = cols[0].slider("Distances from main color: ", min_diff, max_diff, default_diff)
+        hue_diff = cols[0].slider("Hue difference (in °): ", min_diff, max_diff, default_diff)
     return hue_diff
 
 def select_main_color_and_number_of_colors(main_color, min_n, max_n, default_n):
