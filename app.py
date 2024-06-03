@@ -13,7 +13,7 @@ DEFAULT_MAIN_COLOR = "#008dff"
 
 def main():
     ui.initialize_session_state()
-    st.header("Color Palette Generator")
+    st.header("SciHue: Color Palette Generator for Science")
     all_color_schemes = import_color_schemes()
     scheme = ui.select_color_scheme(all_color_schemes)
     hue_diff = ui.select_hue_difference(*scheme.hue_diff_settings)
