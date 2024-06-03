@@ -47,8 +47,8 @@ def import_color_schemes():
         hue_diff_settings = (180, 180, 180)
     )
     
-    color_schemes["split_complementary"] = ColorScheme(
-        name = "split_complementary",
+    color_schemes["split complementary"] = ColorScheme(
+        name = "split complementary",
         description = [
             "Uses a base color and two adjacent colors to its complement",
             "Maintains contrast while offering more color variety than complementary schemes",
