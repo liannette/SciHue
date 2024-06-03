@@ -9,7 +9,7 @@ from frontend import ui
 MAX_COLORS_IN_PALETTE = 8
 DEFAULT_N_COLORS = 7
 MIN_N_COLORS = 3
-DEFAULT_MAIN_COLOR = "#07386D"
+DEFAULT_MAIN_COLOR = "#6D0707"
 
 
 def random_palette():

@@ -13,9 +13,9 @@ def import_color_schemes():
     color_schemes["monochromatic"] = ColorScheme(
         name = "monochromatic",
         description = [
-            "Uses variations in lightness and saturation of a single color (0° hue difference)",
+            "Uses variations in lightness and saturation of a single color",
             "Creates a clean and consistent look", 
-            "Good for designs, scientific posters, and charts to emphasize data without overwhelming the viewer."
+            "Good for designs, scientific posters, and charts to emphasize data without overwhelming the viewer"
         ],
         n_hues = 1,
         hue_diff_settings = (0, 0, 0)
@@ -33,7 +33,7 @@ def import_color_schemes():
     color_schemes["complementary"] = ColorScheme(
         name = "complementary",
         description = [
-            "Uses colors that are opposite each other on the color wheel (180° hue difference)",
+            "Uses colors that are opposite each other on the color wheel",
             "Creates a vibrant and high-contrast look",
             "Useful for highlighting differences or making certain aspects stand out",
         ],
@@ -48,7 +48,7 @@ def import_color_schemes():
             "Ideal for complex figures where multiple distinctions are necessary but still need a cohesive look",
         ],
         n_hues = 3,
-        hue_diff_settings = (150, 175, 170),
+        hue_diff_settings = (150, 175, 165),
     )
     color_schemes["triadic"] = ColorScheme(
         name = "triadic",
@@ -70,7 +70,7 @@ def import_color_schemes():
             "Tips: Do not use all the four colors in equal amounts",
         ],
         n_hues = 4,
-        hue_diff_settings = (5, 60, 90),
+        hue_diff_settings = (5, 90, 60),
     )
     # Add maybe also cool colors, warm colors, neutral colors?
     return color_schemes

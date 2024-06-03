@@ -19,7 +19,7 @@ def select_hue_difference(min_diff, max_diff, default_diff):
         hue_diff = default_diff
     else:
         cols = st.columns(2)
-        hue_diff = cols[0].slider("Hue difference (in °): ", min_diff, max_diff, default_diff)
+        hue_diff = cols[0].slider("Distance on colorwheel (in °): ", min_diff, max_diff, default_diff)
     return hue_diff
 
 def select_main_color_and_number_of_colors(main_color, min_n, max_n, default_n):
