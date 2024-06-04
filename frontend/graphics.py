@@ -1,6 +1,34 @@
 import streamlit as st
-from streamlit_js_eval import streamlit_js_eval
-from pathlib import Path
+from color.schemes import import_color_schemes
+from color.calculations import generate_palette
+
+def color_palettes_for_graphics(
+        max_colors_in_palette, 
+        default_n_colors,
+        min_n_colors, 
+        default_main_color,
+        window_width
+    ):
+    initialize_session_state()
+    all_color_schemes = import_color_schemes()
+    scheme = select_color_scheme(all_color_schemes)
+    hue_diff = select_hue_difference(*scheme.hue_diff_settings)
+    st.divider()
+    main_hex_color, n_colors = select_main_color_and_number_of_colors(
+        default_main_color, 
+        min_n_colors, 
+        max_colors_in_palette, 
+        default_n_colors
+        )
+    st.divider()
+    color_palette = generate_palette(main_hex_color, n_colors, scheme.n_hues, hue_diff)
+    if window_width is not None:
+        n_cols = max_colors_in_palette + 1
+        col_width = calculate_column_width(window_width, n_cols)
+        show_color_palette(color_palette, n_cols, col_width)
+        show_rerun_buttons()
+        current_color_palette(color_palette)
+        show_saved_color_palettes(col_width, n_cols)
 
 def initialize_session_state():
     if "saved_color_palettes" not in st.session_state:
@@ -8,7 +36,7 @@ def initialize_session_state():
 
 def select_color_scheme(all_color_schemes):
     cols = st.columns(3)
-    choice = cols[0].radio("Choose a color combination", options=all_color_schemes.keys())
+    choice = cols[0].radio("Color combination", options=all_color_schemes.keys())
     color_scheme = all_color_schemes[choice]
     cols[1].image(f"images/colorschemes/{color_scheme.name}.png")
     cols[2].caption("  \n* ".join([" ", *color_scheme.description]))
@@ -28,9 +56,6 @@ def select_main_color_and_number_of_colors(main_color, min_n, max_n, default_n):
     n_colors = cols[1].slider("Number of colors in palette: ", min_n, max_n, default_n)
     return main_hex_color, n_colors
 
-def get_window_width():
-    return streamlit_js_eval(js_expressions='window.innerWidth', key='WIDTH', want_output=True)
-
 def calculate_column_width(window_width, n_colors):
     return window_width * 1.03 / n_colors
 
@@ -38,12 +63,15 @@ def show_color_palette(color_palette, n_cols, col_width):
     """ Generates a color palette"""
     cols = st.columns(n_cols)
     for i in range(len(color_palette)):
-        cols[i].markdown(f'<div style="background-color: {color_palette[i]}; width: {col_width}px; height: 50px;"></div>', unsafe_allow_html=True)
-    for i in range(len(color_palette)):
-        cols[i].write(str(color_palette[i]))
+        hex_color = color_palette[i]
+        color_box = f"""
+        <div style="background-color:{hex_color}; width:{col_width}px; height:40px; padding-top:7px; ;padding-bottom:7x; margin-bottom:20px">
+            <p style="color:{hex_color};text-align:center;">{hex_color}</p>
+        </div>
+        """
+        cols[i].markdown(color_box, unsafe_allow_html=True)
     with cols[-1].popover("📋"):
         st.code(repr(color_palette))
-        
         
 def show_rerun_buttons():
     cols = st.columns(2)

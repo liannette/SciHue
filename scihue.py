@@ -1,46 +1,43 @@
 import streamlit as st
-from colorutils.schemes import import_color_schemes
-from colorutils.palette import generate_palette
-from frontend import ui
+from streamlit_js_eval import streamlit_js_eval
+from frontend.graphics import color_palettes_for_graphics
 
 # include predefinded color palettes from https://docs.bokeh.org/en/latest/docs/reference/palettes.html
 
-# Constants
-MAX_COLORS_IN_PALETTE = 8
-DEFAULT_N_COLORS = 7
-MIN_N_COLORS = 3
-DEFAULT_MAIN_COLOR = "#6D0707"
-
-
-def random_palette():
-    all_color_schemes = import_color_schemes()
-    scheme = ui.select_color_scheme(all_color_schemes)
-    hue_diff = ui.select_hue_difference(*scheme.hue_diff_settings)
-    st.divider()
-    main_hex_color, n_colors = ui.select_main_color_and_number_of_colors(
-        DEFAULT_MAIN_COLOR, 
-        MIN_N_COLORS, 
-        MAX_COLORS_IN_PALETTE, 
-        DEFAULT_N_COLORS
+def color_palettes_for_plots():
+    data_type = st.radio("Data type", options=["sequential", "diverging", "qualitative", "cyclic"])
+    with st.popover("Data type description"):
+        st.markdown(
+            """
+        Qualitative data – Data values represent distinct groups or categories with no inherent order.
+        Sequential data – Data values are ordered from low to high, representing a progression.  
+        Diverging data – Data values are ordered and diverge around a meaningful midpoint point (e.g. positive and negative deviations from zero or a mean).
+        """
         )
-    st.divider()
-    color_palette = generate_palette(main_hex_color, n_colors, scheme.n_hues, hue_diff)
-    window_width = ui.get_window_width()
-    if window_width is not None:
-        n_cols = MAX_COLORS_IN_PALETTE + 1
-        col_width = ui.calculate_column_width(window_width, n_cols)
-        ui.show_color_palette(color_palette, n_cols, col_width)
-        ui.show_rerun_buttons()
-        ui.current_color_palette(color_palette)
-        ui.show_saved_color_palettes(col_width, n_cols)
+    n_colors = st.slider("Number of colors", 3, 23, 6)
+    colorblind = st.toggle("Colorblind friendly")
 
+def get_window_width():
+    return streamlit_js_eval(js_expressions='window.innerWidth', key='WIDTH', want_output=True)
 
 def main():
-    ui.initialize_session_state()
-    st.header("Sci-Hue")
-    
-    random_palette()
-        
+    st.title("Sci-Hue")
+    tab_plots, tab_graphics = st.tabs(["For Plots", "For Graphics"])
+    window_width = get_window_width()
+    with tab_plots:
+        color_palettes_for_plots()
+    with tab_graphics:
+        max_colors_in_palette = 8
+        default_n_colors = 7
+        min_n_colors = 3
+        default_main_color = "#6D0707"
+        color_palettes_for_graphics(
+            max_colors_in_palette, 
+            default_n_colors,
+            min_n_colors, 
+            default_main_color,
+            window_width
+        )
 
 if __name__ == "__main__":
     main()
